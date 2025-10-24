@@ -13,7 +13,7 @@ export const ProjectListHeaderWidget = () => {
                     <h1 className="text-gray-200">STORYBOARD AI</h1>
                 </Link>
             </div>
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-4 mr-2">
                 <button>
                     <Settings color="#fff" strokeWidth={1} />
                 </button>
