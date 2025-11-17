@@ -26,3 +26,10 @@ storybook-static
 
 # ONNX Runtime WASM files (copied from node_modules)
 public/onnx/wasm/
+
+# Large model files
+models/
+public/onnx/*.onnx
+public/onnx/*.ort
+
+public/onnx
