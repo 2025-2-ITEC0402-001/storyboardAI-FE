@@ -23,3 +23,6 @@ dist-ssr
 
 *storybook.log
 storybook-static
+
+# ONNX Runtime WASM files (copied from node_modules)
+public/onnx/wasm/
