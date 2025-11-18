@@ -9,7 +9,10 @@ export const ModelSelector = () => {
             </label>
             <select
                 id="model-select"
-                className="w-full bg-[#0E0E11]/70 text-gray-200 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full bg-[#0E0E11]/70 text-gray-200 p-2 rounded-md 
+                           border border-gray-800 
+                           focus:outline-none focus:border-blue-500 
+                           transition-colors"
             >
                 <option value="model-a">Flux-1</option>
                 <option value="model-b">GPT-4</option>

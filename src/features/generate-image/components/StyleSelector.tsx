@@ -9,7 +9,10 @@ export const StyleSelector = () => {
             </label>
             <select
                 id="style-select"
-                className="w-full bg-[#0E0E11]/70 text-gray-200 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full bg-[#0E0E11]/70 text-gray-200 p-2 rounded-md 
+                           border border-gray-800 
+                           focus:outline-none focus:border-blue-500 
+                           transition-colors"
             >
                 <option value="realistic">리얼리스틱</option>
                 <option value="cartoon">카툰</option>
