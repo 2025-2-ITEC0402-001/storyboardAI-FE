@@ -1,6 +1,6 @@
 export const PromptInput = () => {
     return (
-        <section className="pl-4 pr-4 pt-3 ">
+        <section className="pt-3 ">
             <label
                 htmlFor="prompt-input"
                 className="block mb-2 text-sm font-medium text-background"
