@@ -39,15 +39,7 @@ export const PromptFieldItem = ({ index, onRemove }: PromptFieldItemProps) => {
                 rows={3}
                 maxLength={MAX_LENGTH}
                 className={`
-        w-full bg-transparent text-sm text-gray-200 resize-none placeholder-gray-600 focus:outline-none
-        
-        /* 스크롤바 커스텀 시작 */
-        [&::-webkit-scrollbar]:w-1.5          /* 스크롤바 너비 (6px) */
-        [&::-webkit-scrollbar-track]:bg-transparent  /* 트랙 배경 투명 */
-        [&::-webkit-scrollbar-thumb]:bg-gray-700     /* 스크롤바 색상 (어두운 회색) */
-        [&::-webkit-scrollbar-thumb]:rounded-full    /* 스크롤바 둥글게 */
-        [&::-webkit-scrollbar-thumb]:bg-clip-content /* (선택) 약간의 여백 효과 */
-        /* 스크롤바 커스텀 끝 */
+        w-full bg-transparent text-sm text-gray-200 resize-none placeholder-gray-600 focus:outline-none scrollbar-textarea 
     `}
                 placeholder="결과물에 대해 설명해 주세요."
                 {...register(`prompts.${index}.value`)}
