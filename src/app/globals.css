@@ -133,3 +133,19 @@
         display: none;
     }
 }
+
+@layer utilities {
+    .scrollbar-textarea {
+        &::-webkit-scrollbar {
+            width: 6px;
+        }
+        &::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        &::-webkit-scrollbar-thumb {
+            background: theme("colors.gray.700");
+            border-radius: 9999px;
+            background-clip: content-box;
+        }
+    }
+}
