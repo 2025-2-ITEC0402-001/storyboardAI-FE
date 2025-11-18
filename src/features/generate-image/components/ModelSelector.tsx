@@ -1,6 +1,6 @@
 export const ModelSelector = () => {
     return (
-        <section className="pt-3">
+        <section className="pt-4">
             <label
                 htmlFor="model-select"
                 className="block mb-2 text-sm font-medium text-background"

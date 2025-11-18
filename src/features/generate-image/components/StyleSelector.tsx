@@ -1,6 +1,6 @@
 export const StyleSelector = () => {
     return (
-        <section className="pt-3">
+        <section className="pt-4">
             <label
                 htmlFor="style-select"
                 className="block mb-2 text-sm font-medium text-background"
