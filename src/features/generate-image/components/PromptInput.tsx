@@ -4,11 +4,11 @@ import { Plus } from "lucide-react";
 
 import { Button } from "@/shared/ui/button";
 
-import type { FormSchemaType } from "../model/schema";
+import type { PromptFormSchemaType } from "../model/PromptFormSchema";
 import { PromptFieldItem } from "./PromptFieldItem";
 
 export const PromptInput = () => {
-    const { control } = useFormContext<FormSchemaType>();
+    const { control } = useFormContext<PromptFormSchemaType>();
 
     const { fields, append, remove } = useFieldArray({
         control,

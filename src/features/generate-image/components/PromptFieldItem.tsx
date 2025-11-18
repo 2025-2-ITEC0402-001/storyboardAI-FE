@@ -1,6 +1,6 @@
 import { useFormContext } from "react-hook-form";
 
-import type { FormSchemaType } from "../model/schema";
+import type { PromptFormSchemaType } from "../model/PromptFormSchema";
 
 interface PromptFieldItemProps {
     index: number;
@@ -12,7 +12,7 @@ export const PromptFieldItem = ({ index, onRemove }: PromptFieldItemProps) => {
         register,
         watch,
         formState: { errors },
-    } = useFormContext<FormSchemaType>();
+    } = useFormContext<PromptFormSchemaType>();
 
     const currentValue = watch(`prompts.${index}.value`) || "";
     const currentLength = currentValue.length;

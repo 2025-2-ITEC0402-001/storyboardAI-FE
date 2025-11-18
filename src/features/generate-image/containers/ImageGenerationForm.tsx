@@ -5,12 +5,12 @@ import { Button } from "@/shared/ui/button";
 import { ModelSelector } from "../components/ModelSelector";
 import { PromptInput } from "../components/PromptInput";
 import { StyleSelector } from "../components/StyleSelector";
-import { formSchema, type FormSchemaType } from "../model/schema";
+import { promptFormSchema, type PromptFormSchemaType } from "../model/PromptFormSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 export const ImageGenerationForm = () => {
-    const methods = useForm<FormSchemaType>({
-        resolver: zodResolver(formSchema),
+    const methods = useForm<PromptFormSchemaType>({
+        resolver: zodResolver(promptFormSchema),
         defaultValues: {
             model: "model-a",
             style: "realistic",
@@ -19,7 +19,7 @@ export const ImageGenerationForm = () => {
         mode: "onChange",
     });
 
-    const onSubmit = (data: FormSchemaType) => {
+    const onSubmit = (data: PromptFormSchemaType) => {
         console.log("제출 성공:", data);
     };
 
