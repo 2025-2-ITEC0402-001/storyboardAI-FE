@@ -30,7 +30,7 @@ export const ImageGenerationForm = () => {
                     onSubmit={methods.handleSubmit(onSubmit)}
                     className="w-full h-full bg-[#1C1C21] rounded-md px-4 flex flex-col"
                 >
-                    <h2 className="text-background font-bold border-gray-600 pt-4">이미지 생성</h2>
+                    <h2 className="text-background font-bold border-gray-600 py-4">이미지 생성</h2>
 
                     <section className="flex-1 overflow-y-auto scrollbar-hide ">
                         <ModelSelector />
