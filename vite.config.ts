@@ -12,4 +12,8 @@ export default defineConfig({
             "@": path.resolve(__dirname, "./src"),
         },
     },
+    assetsInclude: ["**/*.onnx"],
+    optimizeDeps: {
+        exclude: ["onnxruntime-web"],
+    },
 });
