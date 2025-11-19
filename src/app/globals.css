@@ -41,6 +41,22 @@
     --color-sidebar-ring: var(--sidebar-ring);
 }
 
+@theme {
+    --animate-vertical-shake: vertical-shake 2s linear infinite;
+
+    @keyframes vertical-shake {
+        0% {
+            transform: translateY(0);
+        }
+        25% {
+            transform: translateY(-5%);
+        }
+        75% {
+            transform: translateY(5%);
+        }
+    }
+}
+
 :root {
     --radius: 0.65rem;
     --background: oklch(1 0 0);

@@ -29,7 +29,10 @@ public/onnx/wasm/
 
 # Large model files
 models/
+public/onnx
 public/onnx/*.onnx
 public/onnx/*.ort
 
-public/onnx
+
+
+.env
