@@ -1,13 +1,52 @@
+import { useForm, FormProvider } from "react-hook-form";
+
+import { Button } from "@/shared/ui/button";
+
+import { ModelSelector } from "../components/ModelSelector";
+import { PromptInput } from "../components/PromptInput";
+import { StyleSelector } from "../components/StyleSelector";
+import { promptFormSchema, type PromptFormSchemaType } from "../model/PromptFormSchema";
+import { zodResolver } from "@hookform/resolvers/zod";
+
 export const ImageGenerationForm = () => {
+    const methods = useForm<PromptFormSchemaType>({
+        resolver: zodResolver(promptFormSchema),
+        defaultValues: {
+            model: "model-a",
+            style: "realistic",
+            prompts: [{ value: "" }],
+        },
+        mode: "onChange",
+    });
+
+    const onSubmit = (data: PromptFormSchemaType) => {
+        console.log("제출 성공:", data);
+    };
+
     return (
         <aside className="w-full h-full bg-foreground p-4">
-            <form action="" className="w-full h-full bg-[#1C1C21] rounded-md">
-                <header className="">
-                    <h2 className="text-background font-semibold border-b-[0.5px] border-gray-600 p-4">
-                        이미지 생성
-                    </h2>
-                </header>
-            </form>
+            <FormProvider {...methods}>
+                <form
+                    onSubmit={methods.handleSubmit(onSubmit)}
+                    className="w-full h-full bg-[#1C1C21] rounded-md px-4 flex flex-col"
+                >
+                    <h2 className="text-background font-bold border-gray-600 py-4">이미지 생성</h2>
+
+                    <section className="flex-1 overflow-y-auto scrollbar-hide ">
+                        <ModelSelector />
+
+                        <PromptInput />
+
+                        <StyleSelector />
+                    </section>
+
+                    <footer className="mt-4">
+                        <Button className="w-full mb-4">
+                            <span>생성하기</span>
+                        </Button>
+                    </footer>
+                </form>
+            </FormProvider>
         </aside>
     );
 };
