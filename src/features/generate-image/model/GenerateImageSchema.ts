@@ -15,3 +15,8 @@ export const defaultGenerateImageSchema: GenerateImageSchema = {
     numInferenceSteps: 20,
     seed: undefined,
 };
+
+export interface GenerateImageResponse {
+    taskId: string;
+    message: string;
+}
