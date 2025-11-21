@@ -21,11 +21,9 @@ type Story = StoryObj<typeof ProjectCard>;
 
 export const Default: Story = {
     args: {
-        project: {
-            id: "1",
-            title: "My First Project",
-            time: "2025-10-25",
-        },
+        id: "1",
+        title: "My First Project",
+        description: "This is a brief description of my first project.",
     },
 
     render: (args) => (
