@@ -12,6 +12,9 @@ export class CanvasManager {
 
         this.canvas = canvas;
         const context = canvas.getContext("2d");
+
+        const dpr = window.devicePixelRatio || 1;
+
         if (!context) {
             throw new Error("캔버스 컨텍스트를 가져올 수 없습니다.");
         }
@@ -19,5 +22,11 @@ export class CanvasManager {
         this.context = context;
         this.width = canvas.width;
         this.height = canvas.height;
+
+        const rect = canvas.getBoundingClientRect();
+        canvas.width = rect.width * dpr;
+        canvas.height = rect.height * dpr;
+
+        context.scale(dpr, dpr);
     }
 }
