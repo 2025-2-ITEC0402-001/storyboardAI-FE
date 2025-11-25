@@ -1,4 +1,9 @@
+import { useFormContext } from "react-hook-form";
+
+import type { PromptFormSchemaType } from "../model/PromptFormSchema";
+
 export const StyleSelector = () => {
+    const { register } = useFormContext<PromptFormSchemaType>();
     return (
         <section className="pt-4">
             <label
@@ -9,6 +14,7 @@ export const StyleSelector = () => {
             </label>
             <select
                 id="style-select"
+                {...register("style")}
                 className="w-full bg-[#0E0E11]/70 text-gray-200 p-2 rounded-md 
                            border border-gray-800 
                            focus:outline-none focus:border-blue-500 

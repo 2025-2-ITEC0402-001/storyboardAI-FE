@@ -1,5 +1,8 @@
 import { useForm, FormProvider } from "react-hook-form";
 
+import { useGenerateImageContext } from "@/features/generate-image/contexts/GenerateImageContext";
+import { formatPromptPayload } from "@/features/generate-image/utils/formatPrompt";
+
 import { Button } from "@/shared/ui/button";
 
 import { ModelSelector } from "../components/ModelSelector";
@@ -9,6 +12,8 @@ import { promptFormSchema, type PromptFormSchemaType } from "../model/PromptForm
 import { zodResolver } from "@hookform/resolvers/zod";
 
 export const ImageGenerationForm = () => {
+    const { isPending, generate } = useGenerateImageContext();
+
     const methods = useForm<PromptFormSchemaType>({
         resolver: zodResolver(promptFormSchema),
         defaultValues: {
@@ -20,7 +25,7 @@ export const ImageGenerationForm = () => {
     });
 
     const onSubmit = (data: PromptFormSchemaType) => {
-        console.log("제출 성공:", data);
+        generate({ prompt: formatPromptPayload(data) });
     };
 
     return (
@@ -34,15 +39,13 @@ export const ImageGenerationForm = () => {
 
                     <section className="flex-1 overflow-y-auto scrollbar-hide ">
                         <ModelSelector />
-
                         <PromptInput />
-
                         <StyleSelector />
                     </section>
 
                     <footer className="mt-4">
-                        <Button className="w-full mb-4">
-                            <span>생성하기</span>
+                        <Button className="w-full mb-4" disabled={isPending}>
+                            {isPending ? "생성 중..." : "생성하기"}
                         </Button>
                     </footer>
                 </form>

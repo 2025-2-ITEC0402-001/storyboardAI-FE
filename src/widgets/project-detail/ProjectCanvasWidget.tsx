@@ -2,11 +2,19 @@ import React, { useEffect, useCallback } from "react";
 
 import * as ort from "onnxruntime-web";
 
-import { useImageMasking } from "../hooks/useImageMasking";
+import { ProjectCanvasOverlay } from "@/entities/projects/components/ProjectCanvasOverlay";
+
+import { Spinner } from "@/shared/components/Spinner";
+
+import { useImageMasking } from "../../features/masking/hooks/useImageMasking";
 
 ort.env.wasm.wasmPaths = "https://cdn.jsdelivr.net/npm/onnxruntime-web@1.17.3/dist/";
 
-export default function CanvasSegmentation({ src }: { src: string }) {
+export interface PrjoectCanvasWidgetProps {
+    src?: string;
+}
+
+export const ProjectCanvasWidget = ({ src }: PrjoectCanvasWidgetProps) => {
     const { canvasRef, encode, decode, isProcessing, result } = useImageMasking();
 
     useEffect(() => {
@@ -37,14 +45,16 @@ export default function CanvasSegmentation({ src }: { src: string }) {
                     width: 720,
                     height: "auto",
                     cursor: result?.image_embed ? "crosshair" : "not-allowed",
+                    backgroundColor: "#222222",
                 }}
             />
 
             {isProcessing && (
-                <div className="absolute w-full h-full top-0 left-0 flex items-center justify-center bg-black/50 text-xl font-semibold">
-                    이미지 인코딩 중...
-                </div>
+                <ProjectCanvasOverlay>
+                    <Spinner />
+                    <p className="text-sm text-white my-1">이미지 임베딩 생성중</p>
+                </ProjectCanvasOverlay>
             )}
         </div>
     );
-}
+};

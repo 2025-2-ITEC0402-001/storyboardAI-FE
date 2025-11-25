@@ -4,6 +4,7 @@ import * as ort from "onnxruntime-web";
 
 import { CanvasManager } from "@/features/masking/lib/CanvasManager";
 import { OnnxSessionManager } from "@/features/masking/lib/OnnxSessionManager";
+import { bestIndex, maskToCanvas } from "@/features/masking/lib/mask";
 import { EncodeImageMiddleware } from "@/features/masking/middlewares/EncodeImage";
 import { LoadImageMiddleware } from "@/features/masking/middlewares/LoadImage";
 import type { MaskingMiddlewarePayload } from "@/features/masking/middlewares/MaskingMiddleware";
@@ -11,7 +12,6 @@ import { OnnxSessionLoaderMiddleware } from "@/features/masking/middlewares/Onnx
 import { PreprocessImageMiddleware } from "@/features/masking/middlewares/PreprocessImage";
 import { TransformTensorMiddleware } from "@/features/masking/middlewares/TransformTensor";
 import { createDecoderInputs } from "@/features/masking/utils/createDecoderInputs";
-import { bestIndex, maskToCanvas } from "@/features/masking/lib/mask";
 import { renderMaskOverlay } from "@/features/masking/utils/renderMaskOverlay";
 import { transformCoordinates } from "@/features/masking/utils/transformCoordinates";
 
@@ -30,7 +30,7 @@ export const useImageMasking = () => {
     const [result, setResult] = useState<MaskingMiddlewarePayload | null>(null);
 
     const encode = useCallback(
-        async (imgSrc: string) => {
+        async (imgSrc?: string) => {
             if (!canvasRef.current) {
                 throw new Error("Canvas가 준비되지 않았습니다.");
             }
