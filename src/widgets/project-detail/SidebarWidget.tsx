@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 
 import type { RootState } from "@/app/store/store";
 
-import { ImageEditForm } from "@/features/generate-image/containers/ImageEditForm";
+import { EditForm } from "@/features/generate-image/containers/EditForm";
 import { ImageGenerationForm } from "@/features/generate-image/containers/ImageGenerationForm";
 
 export const SidebarWidget = () => {
@@ -10,7 +10,7 @@ export const SidebarWidget = () => {
 
     switch (mode) {
         case "edit":
-            return <ImageEditForm />;
+            return <EditForm />;
         case "generate":
         default:
             return <ImageGenerationForm />;

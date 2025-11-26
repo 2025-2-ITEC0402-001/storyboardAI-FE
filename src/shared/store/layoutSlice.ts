@@ -20,5 +20,5 @@ export const layoutSlice = createSlice({
     },
 });
 
-export const { changeMode } = layoutSlice.actions;
+export const layoutActions = layoutSlice.actions;
 export const layoutReducer = layoutSlice.reducer;

@@ -5,6 +5,8 @@ import {
 import { generateImageStream } from "@/features/generate-image/services/generateImageStream";
 import { imageGenerationActions } from "@/features/generate-image/store/imageGenerationSlice";
 
+import { layoutActions } from "@/shared/store/layoutSlice";
+
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 export const generateImageThunk = createAsyncThunk<void, GenerateImageRequest>(
@@ -16,6 +18,8 @@ export const generateImageThunk = createAsyncThunk<void, GenerateImageRequest>(
             for await (const streamEvent of generateImageStream(taskId)) {
                 dispatch(imageGenerationActions.setEvent(streamEvent));
             }
+
+            dispatch(layoutActions.changeMode({ mode: "edit" }));
         } catch {
             return rejectWithValue("이미지 생성 중 오류가 발생했습니다.");
         }
