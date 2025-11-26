@@ -1,6 +1,9 @@
 import { useForm, FormProvider } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
 
-import { useGenerateImageContext } from "@/features/generate-image/contexts/GenerateImageContext";
+import type { AppDispatch, RootState } from "@/app/store/store";
+
+import { generateImageThunk } from "@/features/generate-image/store/imageGenerationThunk";
 import { formatPromptPayload } from "@/features/generate-image/utils/formatPrompt";
 
 import { Button } from "@/shared/ui/button";
@@ -12,7 +15,8 @@ import { promptFormSchema, type PromptFormSchemaType } from "../model/PromptForm
 import { zodResolver } from "@hookform/resolvers/zod";
 
 export const ImageGenerationForm = () => {
-    const { isPending, generate } = useGenerateImageContext();
+    const { isPending } = useSelector((state: RootState) => state.imageGeneration);
+    const dispatch: AppDispatch = useDispatch();
 
     const methods = useForm<PromptFormSchemaType>({
         resolver: zodResolver(promptFormSchema),
@@ -25,7 +29,11 @@ export const ImageGenerationForm = () => {
     });
 
     const onSubmit = (data: PromptFormSchemaType) => {
-        generate({ prompt: formatPromptPayload(data) });
+        dispatch(
+            generateImageThunk({
+                prompt: formatPromptPayload(data),
+            }),
+        );
     };
 
     return (
