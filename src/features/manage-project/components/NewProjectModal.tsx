@@ -2,10 +2,6 @@ import { useForm } from "react-hook-form";
 
 import { File } from "lucide-react";
 
-import {
-    NewProjectSchema,
-    type NewProjectSchemaType,
-} from "@/features/manage-project/models/NewProjectSchema";
 import { useCreateNewProjectMutation } from "@/features/manage-project/services/createNewProject";
 
 import { Card } from "@/shared/components/Card";
@@ -17,6 +13,7 @@ import { Input } from "@/shared/ui/input";
 import { Label } from "@/shared/ui/label";
 import { Textarea } from "@/shared/ui/textarea";
 
+import { NewProjectSchema, type NewProjectSchemaType } from "../models/NewProjectSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 export interface NewProjectModalProps {
@@ -32,9 +29,12 @@ export const NewProjectModal = ({ isOpen, setIsOpen }: NewProjectModalProps) => 
     });
 
     const onSubmit = (data: NewProjectSchemaType) => {
-        createNewProject(data, {
-            onSuccess: () => setIsOpen(false),
-        });
+        createNewProject(
+            { ...data, description: data.description ?? "" },
+            {
+                onSuccess: () => setIsOpen(false),
+            },
+        );
     };
 
     return (
