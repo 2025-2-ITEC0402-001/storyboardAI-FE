@@ -10,8 +10,8 @@ import { SceneAsideWidget } from "@/widgets/project-detail/SceneAsideWidget";
 import { SidebarWidget } from "@/widgets/project-detail/SidebarWidget";
 
 export default function ProjectDetailPage() {
-    const { id } = useParams<{ id: string }>();
-    const { data: project } = useGetProjectDetailQuery(id);
+    const { id: projectId } = useParams<{ id: string }>();
+    const { data: project } = useGetProjectDetailQuery(projectId);
 
     return (
         <div className="w-full h-screen flex flex-col">
