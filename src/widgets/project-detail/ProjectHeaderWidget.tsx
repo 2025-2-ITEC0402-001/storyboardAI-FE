@@ -41,7 +41,7 @@ export const ProjectHeaderWidget = () => {
                     type="text"
                     placeholder="프로젝트 명"
                     value={title}
-                    className="max-w-[400px]"
+                    className="max-w-[400px] text-gray-200"
                     onChange={(e) => setTitle(e.target.value)}
                     onBlur={handleTitleBlur}
                 />
