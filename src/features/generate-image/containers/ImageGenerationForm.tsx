@@ -1,9 +1,9 @@
 import { useForm, FormProvider } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 
 import type { AppDispatch, RootState } from "@/app/store/store";
 
-import { generateImageThunk } from "@/features/generate-image/store/imageGenerationThunk";
 import { formatPromptPayload } from "@/features/generate-image/utils/formatPrompt";
 
 import { Button } from "@/shared/ui/button";
@@ -12,11 +12,16 @@ import { ModelSelector } from "../components/ModelSelector";
 import { PromptInput } from "../components/PromptInput";
 import { StyleSelector } from "../components/StyleSelector";
 import { promptFormSchema, type PromptFormSchemaType } from "../model/PromptFormSchema";
+import { generateImageThunk } from "../store/imageGenerationSlice";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 export const ImageGenerationForm = () => {
     const { isPending } = useSelector((state: RootState) => state.imageGeneration);
     const dispatch: AppDispatch = useDispatch();
+
+    const params = useParams<{
+        id: string;
+    }>();
 
     const methods = useForm<PromptFormSchemaType>({
         resolver: zodResolver(promptFormSchema),
@@ -32,6 +37,7 @@ export const ImageGenerationForm = () => {
         dispatch(
             generateImageThunk({
                 prompt: formatPromptPayload(data),
+                projectId: String(params.id),
             }),
         );
     };
