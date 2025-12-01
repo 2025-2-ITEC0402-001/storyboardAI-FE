@@ -6,10 +6,18 @@ import { api } from "@/shared/lib/api";
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-export async function setProjectThumbnail(projectId: string, thumbnailBase64: string) {
-    const response = await api.put<ProjectSchema>(`/api/projects/${projectId}/thumbnail`, {
-        thumbnail: thumbnailBase64,
-    });
+export async function setProjectThumbnail(projectId: string, imageUrl: string) {
+    const thumbnailResponse = await fetch(imageUrl);
+    const thumbnailImage = await thumbnailResponse.blob();
+
+    const formData = new FormData();
+    formData.append("thumbnail", thumbnailImage);
+
+    const response = await api.put<ProjectSchema>(
+        `/api/projects/${projectId}/thumbnail`,
+        formData,
+        { headers: { "Content-Type": "multipart/form-data" } },
+    );
     return response.data;
 }
 
