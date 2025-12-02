@@ -1,10 +1,17 @@
 import React, { useEffect, useCallback } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import * as ort from "onnxruntime-web";
 
+import type { AppDispatch, RootState } from "@/app/store/store";
+
 import { ProjectCanvasOverlay } from "@/entities/projects/components/ProjectCanvasOverlay";
 
+import { VideoTrajactoryLayer } from "@/features/generate-image/containers/VideoTrajactoryLayer";
+import { maskingActions } from "@/features/masking/store/maskingSlice";
+
 import { Spinner } from "@/shared/components/Spinner";
+import { layoutActions } from "@/shared/store/layoutSlice";
 
 import { useImageMasking } from "../../features/masking/hooks/useImageMasking";
 
@@ -16,6 +23,9 @@ export interface PrjoectCanvasWidgetProps {
 
 export const ProjectCanvasWidget = ({ src }: PrjoectCanvasWidgetProps) => {
     const { canvasRef, encode, decode, isProcessing, result } = useImageMasking();
+
+    const mode = useSelector((state: RootState) => state.layout.mode);
+    const dispatch: AppDispatch = useDispatch();
 
     useEffect(() => {
         encode(src);
@@ -31,9 +41,13 @@ export const ProjectCanvasWidget = ({ src }: PrjoectCanvasWidgetProps) => {
             const clickX = ((e.clientX - rect.left) / rect.width) * canvas.width;
             const clickY = ((e.clientY - rect.top) / rect.height) * canvas.height;
 
-            await decode(clickX, clickY, 1);
+            const result = await decode(clickX, clickY, 1);
+            if (result?.maskArray) {
+                dispatch(maskingActions.setMaskArray(result.maskArray));
+            }
+            dispatch(layoutActions.setIsMasked(true));
         },
-        [canvasRef, decode],
+        [canvasRef, decode, dispatch],
     );
 
     return (
@@ -55,6 +69,7 @@ export const ProjectCanvasWidget = ({ src }: PrjoectCanvasWidgetProps) => {
                     <p className="text-sm text-white my-1">이미지 임베딩 생성중</p>
                 </ProjectCanvasOverlay>
             )}
+            {mode === "edit:video" && <VideoTrajactoryLayer canvasRef={canvasRef} />}
         </div>
     );
 };

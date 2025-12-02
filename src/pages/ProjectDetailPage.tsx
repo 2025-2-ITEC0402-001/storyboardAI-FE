@@ -1,7 +1,3 @@
-import { useParams } from "react-router-dom";
-
-import { useGetProjectDetailQuery } from "@/features/manage-project/services/getProjectDetail";
-
 import { ResizablePanel } from "@/shared/ui/resizable-panel";
 
 import { MainCanvasWidget } from "@/widgets/project-detail/MainCanvasWidget";
@@ -10,9 +6,6 @@ import { SceneAsideWidget } from "@/widgets/project-detail/SceneAsideWidget";
 import { SidebarWidget } from "@/widgets/project-detail/SidebarWidget";
 
 export default function ProjectDetailPage() {
-    const { id: projectId } = useParams<{ id: string }>();
-    const { data: project } = useGetProjectDetailQuery(projectId);
-
     return (
         <div className="w-full h-screen flex flex-col">
             <ProjectHeaderWidget />
