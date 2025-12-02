@@ -32,7 +32,7 @@ export const generateImageThunk = createAsyncThunk<
             queryKey: [PROJECT_QUERY_KEYS.DETAIL(request.projectId), PROJECT_QUERY_KEYS.LIST()],
         });
 
-        dispatch(layoutActions.changeMode({ mode: "edit" }));
+        dispatch(layoutActions.changeMode({ mode: "masking" }));
     } catch {
         return rejectWithValue("이미지 생성 중 오류가 발생했습니다.");
     }
