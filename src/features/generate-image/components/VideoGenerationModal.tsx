@@ -1,4 +1,10 @@
+import { useDispatch, useSelector } from "react-redux";
+
 import { Video } from "lucide-react";
+
+import type { AppDispatch, RootState } from "@/app/store/store";
+
+import { videoGenerationActions } from "@/features/generate-image/store/videoGenerationSlice";
 
 import { Card } from "@/shared/components/Card";
 import { ModalBackdrop } from "@/shared/components/ModalBackdrop";
@@ -11,9 +17,16 @@ export interface NewProjectModalProps {
     setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const VideoGenerationModal = ({ isOpen, setIsOpen }: NewProjectModalProps) => {
+export const VideoGenerationModal = () => {
+    const isVideoGenerationModalOpen = useSelector(
+        (state: RootState) => state.videoGeneration.isVideoGenerationModalOpen,
+    );
+
+    const videoUrl = useSelector((state: RootState) => state.videoGeneration.videoObjectUrl);
+    const dispatch: AppDispatch = useDispatch();
+
     return (
-        isOpen && (
+        isVideoGenerationModalOpen && (
             <GlobalPortal.Consumer>
                 <ModalBackdrop>
                     <Card className="p-6 w-[800px]">
@@ -34,9 +47,9 @@ export const VideoGenerationModal = ({ isOpen, setIsOpen }: NewProjectModalProps
                                 <Label className="my-2">생성된 영상</Label>
 
                                 <video
-                                    className="w-full h-auto rounded-md bg-black"
+                                    className="w-full max-h-[500px] rounded-md bg-black object-contain"
                                     controls
-                                    src="https://www.w3schools.com/html/mov_bbb.mp4"
+                                    src={videoUrl as string}
                                 >
                                     video 태그를 지원하지 않는 브라우저입니다
                                 </video>
@@ -44,10 +57,24 @@ export const VideoGenerationModal = ({ isOpen, setIsOpen }: NewProjectModalProps
                         </section>
 
                         <footer className="flex gap-2 mt-4">
-                            <Button variant="outline" onClick={() => setIsOpen(false)}>
+                            <Button
+                                variant="outline"
+                                onClick={() => dispatch(videoGenerationActions.closeModal())}
+                            >
                                 닫기
                             </Button>
-                            <Button>영상 다운로드</Button>
+                            <Button
+                                onClick={() => {
+                                    const link = document.createElement("a");
+                                    link.href = videoUrl as string;
+                                    link.download = "generated_video.mp4";
+                                    document.body.appendChild(link);
+                                    link.click();
+                                    document.body.removeChild(link);
+                                }}
+                            >
+                                영상 다운로드
+                            </Button>
                         </footer>
                     </Card>
                 </ModalBackdrop>
