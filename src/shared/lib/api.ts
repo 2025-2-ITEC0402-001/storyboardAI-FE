@@ -29,6 +29,7 @@ api.interceptors.request.use(async (config) => {
             config.headers["Authorization"] = `Bearer ${newAccessToken}`;
         } catch {
             logout();
+            window.location.href = "/auth";
             toast.error("세션이 만료되어 로그아웃되었습니다.");
         }
     } else {
