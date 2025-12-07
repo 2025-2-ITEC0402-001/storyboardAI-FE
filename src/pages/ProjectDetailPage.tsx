@@ -2,7 +2,7 @@ import { ResizablePanel } from "@/shared/ui/resizable-panel";
 
 import { MainCanvasWidget } from "@/widgets/project-detail/MainCanvasWidget";
 import { ProjectHeaderWidget } from "@/widgets/project-detail/ProjectHeaderWidget";
-import { SceneAsideWidget } from "@/widgets/project-detail/SceneAsideWidget";
+// import { SceneAsideWidget } from "@/widgets/project-detail/SceneAsideWidget";
 import { SidebarWidget } from "@/widgets/project-detail/SidebarWidget";
 
 export default function ProjectDetailPage() {
@@ -11,7 +11,7 @@ export default function ProjectDetailPage() {
             <ProjectHeaderWidget />
 
             <main className="flex flex-1 h-0">
-                <ResizablePanel
+                {/* <ResizablePanel
                     side="left"
                     defaultWidth={300}
                     minWidth={200}
@@ -19,7 +19,7 @@ export default function ProjectDetailPage() {
                     className="h-full"
                 >
                     <SceneAsideWidget />
-                </ResizablePanel>
+                </ResizablePanel> */}
 
                 <MainCanvasWidget />
 
